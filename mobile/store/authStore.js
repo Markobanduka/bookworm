@@ -43,7 +43,7 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Invalid credentials");
+      if (!response.ok) throw new Error(data.error || "Something went wrong");
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
       set({ user: data.user, token: data.token, isLoading: false });

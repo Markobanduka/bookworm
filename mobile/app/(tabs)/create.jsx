@@ -19,6 +19,7 @@ import COLORS from "../../constants/colors";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { useAuthStore } from "../../store/authStore";
+import { API_URL } from "../../constants/api";
 
 export default function Create() {
   const [title, setTitle] = useState("");
