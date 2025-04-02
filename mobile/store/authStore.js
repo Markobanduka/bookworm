@@ -18,7 +18,8 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ username, email, password }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Something went wrong");
+      if (!response.ok)
+        throw new Error(error.message || "Something went wrong");
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
       set({ user: data.user, token: data.token, isLoading: false });
@@ -42,7 +43,7 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Something went wrong");
+      if (!response.ok) throw new Error(data.message || "Invalid credentials");
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
       set({ user: data.user, token: data.token, isLoading: false });
