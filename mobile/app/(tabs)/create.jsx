@@ -30,7 +30,10 @@ export default function Create() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const { token } = useAuthStore();
+  const { token, user } = useAuthStore();
+
+  console.log("Token: ", token);
+  console.log("User: ", user);
 
   const pickImage = async () => {
     try {
@@ -101,13 +104,19 @@ export default function Create() {
           caption,
           rating: rating.toString(),
           image: imageDataUrl,
+          // user: user._id,
         }),
       });
 
+      // if (!response.ok) {
+      //   const errorMessage = await response.text();
+      //   throw new Error(errorMessage || "Something went wrong!");
+      // }
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || "Something went wrong!");
       }
+
       Alert.alert("Success", "Your book recommendation has been posted!");
       setTitle("");
       setCaption("");

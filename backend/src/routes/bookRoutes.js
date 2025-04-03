@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post("/", protectRoute, async (req, res) => {
   try {
+    console.log("Received User:", req.user);
     const { title, caption, rating, image } = req.body;
 
     if (!title || !caption || !rating || !image) {
