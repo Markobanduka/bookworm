@@ -22,7 +22,7 @@ export const useAuthStore = create((set) => ({
         throw new Error(error.message || "Something went wrong");
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
-      set({ user: data.user, token: data.token, isLoading: false });
+      set({ token: data.token, user: data.user, isLoading: false });
       return {
         success: true,
         message: "Registration successful",
@@ -46,7 +46,7 @@ export const useAuthStore = create((set) => ({
       if (!response.ok) throw new Error(data.error || "Something went wrong");
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
       await AsyncStorage.setItem("token", data.token);
-      set({ user: data.user, token: data.token, isLoading: false });
+      set({ token: data.token, user: data.user, isLoading: false });
       return {
         success: true,
         message: "Login successful",
