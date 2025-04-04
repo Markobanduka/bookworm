@@ -50,7 +50,7 @@ router.post("/register", async (req, res) => {
 
     await user.save();
 
-    const token = generateToken(username._id);
+    const token = generateToken(user._id);
 
     res.status(201).json({
       token,
