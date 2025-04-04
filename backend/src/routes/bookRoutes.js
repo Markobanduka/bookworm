@@ -47,7 +47,7 @@ router.get("/", protectRoute, async (req, res) => {
       .populate("user", "username profileImage");
 
     const totalBooks = await Book.countDocuments();
-    res.status({
+    res.send({
       books,
       currentPage: page,
       totalBooks,
