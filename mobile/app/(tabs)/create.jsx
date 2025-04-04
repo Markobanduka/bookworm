@@ -104,7 +104,7 @@ export default function Create() {
           caption,
           rating: rating.toString(),
           image: imageDataUrl,
-          // user: user._id,
+          user: user._id,
         }),
       });
 
