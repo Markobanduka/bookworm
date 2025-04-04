@@ -104,7 +104,6 @@ export default function Create() {
           caption,
           rating: rating.toString(),
           image: imageDataUrl,
-          user: user._id,
         }),
       });
 
@@ -123,7 +122,6 @@ export default function Create() {
       setRating(3);
       setImage(null);
       setImageBase64(null);
-
       router.push("/");
     } catch (error) {
       console.error("Error adding book:", error);
