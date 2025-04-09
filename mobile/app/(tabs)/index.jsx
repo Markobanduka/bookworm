@@ -1,12 +1,14 @@
-import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../../store/authStore";
+import { Image } from "expo-image";
 
 import styles from "../../assets/styles/home.styles";
 import { API_URL } from "../../constants/api";
 
 export default function Home() {
-  const { token } = useAuthStore();
+  const { token, logout } = useAuthStore();
+
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -15,6 +17,11 @@ export default function Home() {
 
   const fetchBooks = async (pageNum = 1, refresh = false) => {
     try {
+      console.log(
+        "📡 Fetching books from:",
+        `${API_URL}/books?page=${pageNum}&limit=5`
+      );
+      console.log("🔐 Using token:", token);
       if (refresh) setRefreshing(true);
       else if (pageNum === 1) setLoading(true);
 
@@ -23,8 +30,11 @@ export default function Home() {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("📥 Response status:", response.status);
 
       const data = await response.json();
+      console.log("📚 Fetched data from API:", data);
+
       if (!response.ok) {
         throw new Error(data.message || "Failed to fetch books");
       }
@@ -32,7 +42,7 @@ export default function Home() {
       setHasMore(pageNum < data.totalPages);
       setPage(pageNum);
     } catch (error) {
-      console.error("Error fetching books:", error);
+      console.error("❌ Error fetching books:", error);
     } finally {
       if (refresh) setRefreshing(false);
       else setLoading(false);
@@ -65,8 +75,15 @@ export default function Home() {
       </View>
     </View>
   );
+  console.log(books);
 
   return (
+    // <>
+    //   <View>
+    //     <TouchableOpacity onPress={logout}>
+    //       <Text>Logout</Text>
+    //     </TouchableOpacity>
+    //   </View>
     <View style={styles.container}>
       <FlatList
         data={books}
@@ -76,5 +93,6 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
       />
     </View>
+    // </>
   );
 }
