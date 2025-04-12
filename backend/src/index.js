@@ -5,6 +5,7 @@ import job from "./lib/cron.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
+import pingRoute from "./routes/pingRoute.js";
 
 import { connectDB } from "./lib/db.js";
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
+app.use("/api/ping", pingRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
