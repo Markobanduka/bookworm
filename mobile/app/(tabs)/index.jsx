@@ -30,19 +30,27 @@ export default function Home() {
           Authorization: `Bearer ${token}`,
         },
       });
+
       console.log("📥 Response status:", response.status);
 
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        throw new Error(`Invalid JSON response:\n${text}`);
+      }
+
       const data = await response.json();
-      console.log("📚 Fetched data from API:", data);
+      console.log("📚 Fetched data from API:", JSON.stringify(data, null, 2));
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to fetch books");
       }
+
       setBooks((prevBooks) => [...prevBooks, ...data.books]);
       setHasMore(pageNum < data.totalPages);
       setPage(pageNum);
     } catch (error) {
-      console.error("❌ Error fetching books:", error);
+      console.error("❌ Error fetching books:", error.message);
     } finally {
       if (refresh) setRefreshing(false);
       else setLoading(false);
