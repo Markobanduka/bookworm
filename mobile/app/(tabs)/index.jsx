@@ -78,21 +78,21 @@ export default function Home() {
   console.log(books);
 
   return (
-    // <>
-    //   <View>
-    //     <TouchableOpacity onPress={logout}>
-    //       <Text>Logout</Text>
-    //     </TouchableOpacity>
-    //   </View>
-    <View style={styles.container}>
-      <FlatList
-        data={books}
-        renderItem={renderItem}
-        keyExtractor={(item) => item._id}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
-    // </>
+    <>
+      <View>
+        <TouchableOpacity onPress={logout}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <FlatList
+          data={books}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+    </>
   );
 }
